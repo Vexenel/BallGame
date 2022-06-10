@@ -1,6 +1,7 @@
 # Импортируем
 import pygame
 import random
+import time
 
 
 # Подготовка к работе
@@ -19,8 +20,8 @@ xpos1 = 420
 ypos2 = 940
 xpos2 = 250
 ypos3 = 10
-speedx = 5
-speedy = 5
+speedx = 3
+speedy = 3
 score1 = 0
 score2 = 0
 speed1 = 5
@@ -28,7 +29,7 @@ speed2 = 5
 
 # Создание цветов
 RED = (255, 0, 0)
-GREEN = (0, 255, 0)
+GREEN = (0, 155, 0)
 BLUE = (0, 0, 255)
 BLACK = (0, 0, 0)
 WHITE = (255, 255, 255)
@@ -50,7 +51,7 @@ pygame.display.set_caption("Ball Game")
 # Добавление шрифтов
 font = pygame.font.SysFont("Chilanka", 100)
 font_small = pygame.font.SysFont("Chilanka", 100)
-game_over = font.render("Game Over", True, BLACK)
+Goal = font.render("GOAL!!!", True, WHITE)
 
 
 while True:
@@ -72,15 +73,25 @@ while True:
     elif keys[pygame.K_d]:
         speed2 += 3
     if xpos > screen_width-64:
-        speedx = (-5 * random.random())-1
+        speedx = (-3 * random.random())-1
     if xpos < 0:
-        speedx = (5 * random.random())+1
+        speedx = (3 * random.random())+1
     if ypos > screen_height-64:
-        speedy = (-5 * random.random())-1
+        speedy = (-3 * random.random())-1
         score2 += 1
+        DISPLAYSURFACE.fill(GREEN)
+        DISPLAYSURFACE.blit(Goal, (170, 512))
+        pygame.mixer.Sound('gl.mp3').play()
+        pygame.display.update()
+        time.sleep(1)
     if ypos < 0:
-        speedy = (5 * random.random())+1
+        speedy = (3 * random.random())+1
         score1 += 1
+        DISPLAYSURFACE.fill(GREEN)
+        DISPLAYSURFACE.blit(Goal, (170, 512))
+        pygame.mixer.Sound('gl.mp3').play()
+        pygame.display.update()
+        time.sleep(1)
     xpos1 = speed1
     xpos2 = speed2
     xpos += speedx
