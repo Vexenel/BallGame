@@ -43,7 +43,20 @@ pygame.display.set_icon(icon)
 ball = pygame.image.load("bl.png")
 ball.set_colorkey((255, 255, 255))
 ball.set_alpha(200)
-
+'''
+pl1 = pygame.sprite.Sprite()
+pl1.image = pygame.image.load("vr.png")
+pl1.rect = pl1.image.get_rect()
+pl2 = pygame.sprite.Sprite()
+pl2.image = pygame.image.load("vrl.png")
+ball = pygame.sprite.Sprite()
+pl2.rect = pl2.image.get_rect()
+ball.image = pygame.image.load("bl.png")
+ball.image.set_colorkey((255, 255, 255))
+ball.image.set_alpha(200)
+ball.rect = ball.image.get_rect()
+ball.rect.center = (338, 513)
+'''
 # Создание экрана и его название
 DISPLAYSURFACE = pygame.display.set_mode((674, 1024))
 pygame.display.set_caption("Ball Game")
@@ -53,8 +66,16 @@ font = pygame.font.SysFont("Chilanka", 100)
 font_small = pygame.font.SysFont("Chilanka", 100)
 Goal = font.render("GOAL!!!", True, WHITE)
 
+# all_sprite = pygame.sprite.Group()
+# all_sprite.add(pl1)
+# all_sprite.add(pl2)
+# pl1.rect.colliderect()
 
 while True:
+
+    # for i in all_sprite:
+    # DISPLAYSURFACE.blit(i.image, i.rect)
+
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             exit()
@@ -92,6 +113,7 @@ while True:
         pygame.mixer.Sound('gl.mp3').play()
         pygame.display.update()
         time.sleep(1)
+
     xpos1 = speed1
     xpos2 = speed2
     xpos += speedx
@@ -104,5 +126,17 @@ while True:
     scores2 = font_small.render(str(score2), True, BLACK)
     DISPLAYSURFACE.blit(scores1, (10, 10))
     DISPLAYSURFACE.blit(scores2, (10, 930))
+    rect2 = pl1.get_rect()
+    rect2.move_ip(xpos1, ypos2)
+    rect1 = ball.get_rect()
+    rect1.move_ip(xpos, ypos)
+    rect3 = pl2.get_rect()
+    rect3.move_ip(xpos2, ypos3)
+    if rect1.colliderect(rect2):
+        speedy = (-3 * random.random())-1
+        pygame.mixer.Sound('ots.mp3').play()
+    if rect1.colliderect(rect3):
+        speedy = (3 * random.random())+1
+        pygame.mixer.Sound('ots.mp3').play()
     pygame.display.flip()
     clock.tick(FPS)
