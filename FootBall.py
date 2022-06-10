@@ -57,6 +57,11 @@ while True:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             exit()
+        elif event.type == pygame.MOUSEBUTTONDOWN:
+            if event.button == 1:
+                xpos = event.pos[0] - 75
+                ypos = event.pos[1] - 75
+                print(event.pos)
     keys = pygame.key.get_pressed()
     if keys[pygame.K_LEFT]:
         speed1 -= 3
@@ -66,11 +71,6 @@ while True:
         speed2 -= 3
     elif keys[pygame.K_d]:
         speed2 += 3
-        if event.type == pygame.MOUSEBUTTONDOWN:
-            if event.button == 1:
-                xpos = event.pos[0] - 75
-                ypos = event.pos[1] - 75
-                print(event.pos)
     if xpos > screen_width-64:
         speedx = (-5 * random.random())-1
     if xpos < 0:
